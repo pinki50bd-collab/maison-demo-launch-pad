@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>MAISON — Luxury E-Commerce &amp; Atelier Management System | Interactive Demo Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --bg: #0A0908;
+      --card-bg: #12110E;
+      --card-hover: #191713;
+      --border: rgba(197, 168, 128, 0.18);
+      --border-hover: rgba(197, 168, 128, 0.6);
+      --gold: #C5A880;
+      --gold-light: #E7D7C1;
+      --gold-glow: rgba(197, 168, 128, 0.25);
+      --text: #F5F1E8;
+      --muted: #8C8471;
+      --green: #10B981;
+      --radius: 18px;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      position: relative;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Ambient Background Glow (Safe for Mobile Viewports) */
+    .ambient-glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(197, 168, 128, 0.14) 0%, rgba(10, 9, 8, 0) 70%);
+      filter: blur(70px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ambient-bottom-glow {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 500px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(197, 168, 128, 0.08) 0%, rgba(10, 9, 8, 0) 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top Navigation Header */
+    header {
+      width: 100%;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(197, 168, 128, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 9, 8, 0.9);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--gold); }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: var(--green);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ping-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse-green 2s infinite;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 50px 0 35px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      font-weight: 800;
+      margin-bottom: 18px;
+      background: rgba(197, 168, 128, 0.08);
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      line-height: 1.22;
+      color: #FFFFFF;
+      max-width: 900px;
+      margin: 0 auto 18px;
+      font-weight: 600;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+      background: linear-gradient(135deg, #FFE8C2 0%, #C5A880 50%, #9B7D4E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 14.5px;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 30px;
+      font-weight: 300;
+      padding: 0 8px;
+    }
+
+    /* CTA Group */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 24px;
+      border-radius: 14px;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: #0A0908;
+      box-shadow: 0 8px 24px var(--gold-glow);
+      border: 1px solid var(--gold);
+    }
+    .btn-gold:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.03);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(197, 168, 128, 0.08);
+    }
+
+    /* Credentials Card */
+    .cred-wrapper {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto 60px;
+      background: linear-gradient(180deg, #151410 0%, #100F0C 100%);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+    .cred-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .cred-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(197, 168, 128, 0.2);
+    }
+    .cred-top-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cred-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .cred-box {
+      background: rgba(10, 9, 8, 0.85);
+      border: 1px solid rgba(197, 168, 128, 0.2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .cred-info { text-align: left; min-width: 0; }
+    .cred-label {
+      font-size: 8.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .cred-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #FFFFFF;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .copy-chip {
+      background: rgba(197, 168, 128, 0.12);
+      border: 1px solid rgba(197, 168, 128, 0.35);
+      color: var(--gold);
+      font-size: 9.5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .copy-chip:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .copy-chip.copied {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    /* Section Headings */
+    .section-head {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .section-head span {
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      font-weight: 800;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: #FFFFFF;
+      font-weight: 600;
+      padding: 0 10px;
+    }
+
+    /* Feature Cards - 100% FIXED MOBILE LAYOUT */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column; /* 100% FIXED: Stacks vertically properly */
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      width: 100%;
+      text-align: left;
+    }
+    .feature-card:hover {
+      border-color: var(--border-hover);
+      background: var(--card-hover);
+      transform: translateY(-3px);
+    }
+
+    .card-top {
+      width: 100%;
+      display: block;
+      margin-bottom: 18px;
+    }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(197, 168, 128, 0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 14px;
+      color: var(--gold);
+    }
+    .feature-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .feature-card p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .card-footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 14px;
+    }
+
+    /* Mobile QR Showcase Banner */
+    .mobile-banner {
+      background: linear-gradient(135deg, #14120E 0%, #1B1812 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+    .mobile-banner-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+    .mobile-banner-text p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .qr-box {
+      background: #FFFFFF;
+      padding: 10px;
+      border-radius: 14px;
+      border: 2.5px solid var(--gold);
+      text-align: center;
+    }
+    .qr-box img {
+      width: 125px;
+      height: 125px;
+      display: block;
+    }
+    .qr-box small {
+      display: block;
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #0A0908;
+      text-transform: uppercase;
+    }
+
+    /* Specs Badges Strip */
+    .specs-strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px 20px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+      opacity: 0.8;
+      padding: 0 10px;
+    }
+    .spec-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(197, 168, 128, 0.12);
+      padding: 30px 16px 45px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #FFFFFF;
+      color: #0A0908;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 999px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      white-space: nowrap;
+    }
+    #toast.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Desktop Breakpoint Enhancements */
+    @media (min-width: 640px) {
+      .cta-group { flex-direction: row; }
+      .btn { width: auto; padding: 16px 30px; }
+      .cred-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 768px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 80px 0 50px; }
+      .hero h1 { font-size: 48px; }
+      .hero p { font-size: 16px; }
+      .section-head h2 { font-size: 34px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .mobile-banner { flex-direction: row; text-align: left; padding: 40px; }
+      .mobile-banner-text p { margin-bottom: 0; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero h1 { font-size: 56px; }
+      .feature-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+  <div class="ambient-bottom-glow"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        MAI<span>SON</span>
+      </a>
+      <div class="status-badge">
+        <span class="ping-dot"></span>
+        <span>Live Sandbox</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-eyebrow">
+          ✦ CodeCanyon Official Preview
+        </div>
+        <h1>
+          Engineered for the Top 1%.<br />
+          Crafted in <em>Next.js 14 Architecture</em>.
+        </h1>
+        <p>
+          The turnkey luxury marketplace suite equipped with in-browser 3D Web-AR, Made-to-Measure tailoring, realtime collaborative shopping, and tamper-proof server-side pricing.
+        </p>
+
+        <!-- Main Action Buttons -->
+        <div class="cta-group">
+          <a href="/" target="_blank" class="btn btn-gold">
+            <span>Storefront Demo</span>
+            <span>&rarr;</span>
+          </a>
+          <a href="/admin" target="_blank" class="btn btn-outline">
+            <span>Admin Dashboard</span>
+            <span>&rarr;</span>
+          </a>
+          <a href="/documentation-1.html" target="_blank" class="btn btn-outline">
+            <span>Documentation Manual</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+
+        <!-- 1-Click Master Admin Credentials Box -->
+        <div class="cred-wrapper">
+          <div class="cred-top">
+            <span class="cred-top-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Instant Admin Demo Access</span>
+            </span>
+            <span style="font-size: 9.5px; font-family: 'JetBrains Mono', monospace; color: var(--muted);">Auto-Refreshed</span>
+          </div>
+
+          <div class="cred-grid">
+            <div class="cred-box">
+              <div class="cred-info">
+                <div class="cred-label">Admin Email</div>
+                <div class="cred-val">admin@maison.com</div>
+              </div>
+              <button class="copy-chip" onclick="copyText('admin@maison.com', this)">Copy</button>
+            </div>
+
+            <div class="cred-box">
+              <div class="cred-info">
+                <div class="cred-label">Admin Password</div>
+                <div class="cred-val">Admin123456!</div>
+              </div>
+              <button class="copy-chip" onclick="copyText('Admin123456!', this)">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Direct Testing Showcase Grid -->
+      <section>
+        <div class="section-head">
+          <span>Interactive Test Drive</span>
+          <h2>Deep-Dive Into Standout Features</h2>
+        </div>
+
+        <div class="feature-grid">
+          
+          <!-- Card 1: 3D & Web-AR -->
+          <a href="/product/13" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">🪐</div>
+              <h3>360° Studio &amp; Web-AR</h3>
+              <p>Test in-browser 3D orbit rotation with inertia physics and mobile Augmented Reality (USDZ &amp; GLB) without downloading any app.</p>
+            </div>
+            <div class="card-footer">
+              <span>Test Watch in 3D / AR</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 2: Made-to-Measure -->
+          <a href="/product/1" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">📐</div>
+              <h3>Bespoke Made-to-Measure</h3>
+              <p>Interactive anatomical body &amp; footwear vector diagram that highlights target measurement fields with 1-click profile save.</p>
+            </div>
+            <div class="card-footer">
+              <span>Test Tailoring Form</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 3: Monogramming -->
+          <a href="/product/8" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">✨</div>
+              <h3>24k Gold Monogramming</h3>
+              <p>Realtime foil stamping &amp; debossing visualizer positioned accurately on top of leather textures with custom typography styles.</p>
+            </div>
+            <div class="card-footer">
+              <span>Test Stamping Tool</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 4: Co-Shopping -->
+          <a href="/product/1?lounge=VIP-DEMO" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">👥</div>
+              <h3>Realtime Co-Shopping</h3>
+              <p>Powered by Supabase WebSockets. Shop live with friends with synchronized color swatches, live typing, and collaborative shared cart.</p>
+            </div>
+            <div class="card-footer">
+              <span>Join Live Room</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 5: Tamper-Proof Checkout -->
+          <a href="/checkout" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">🔒</div>
+              <h3>Authoritative Checkout</h3>
+              <p>Every single cent, bundle discount, coupon code, and wallet credit is validated strictly on server-side to prevent client price tampering.</p>
+            </div>
+            <div class="card-footer">
+              <span>Inspect Checkout Funnel</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 6: Barcode Invoicing -->
+          <a href="/admin?tab=orders" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">🧾</div>
+              <h3>Barcode Thermal Slips</h3>
+              <p>1-click printable customer tax invoices and courier parcel slips with dynamic barcode rendering directly from the admin panel.</p>
+            </div>
+            <div class="card-footer">
+              <span>Open Orders Dispatch</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 7: True Arabic RTL -->
+          <a href="/shop" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">🌍</div>
+              <h3>True Arabic RTL Mode</h3>
+              <p>Architectural right-to-left layout mirroring with localized currencies (SAR, AED, KWD) and bundled Arabic dictionaries for GCC expansion.</p>
+            </div>
+            <div class="card-footer">
+              <span>View Mirrored Catalog</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 8: Digital Passport -->
+          <a href="/product/13" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">📜</div>
+              <h3>Digital Product Passport</h3>
+              <p>Cryptographic SHA-256 ledger certificate verifying artisan origin, raw material provenance, and printable certificate of authenticity.</p>
+            </div>
+            <div class="card-footer">
+              <span>Authenticate Ledger</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 9: AI Stylist -->
+          <a href="/product/1" target="_blank" class="feature-card">
+            <div class="card-top">
+              <div class="card-icon">🤖</div>
+              <h3>Atelier AI Stylist</h3>
+              <p>Interactive chat stylist that analyzes catalog products, offers size recommendations, and provides real-time outfit pairing suggestions.</p>
+            </div>
+            <div class="card-footer">
+              <span>Chat with Stylist</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Smartphone QR Scanner Showcase Banner -->
+      <section class="mobile-banner">
+        <div class="mobile-banner-text">
+          <h3>Test the Native-Grade Mobile PWA on Your Phone</h3>
+          <p>
+            Maison functions like a bespoke $25,000 native app on iOS Safari and Android Chrome. Scan this QR code directly with your phone camera to experience 60fps butter-smooth browsing and home-screen install prompts.
+          </p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>⚡ Zero-Lag App &bull; Offline Capable &bull; Touch Optimized</span>
+          </div>
+        </div>
+
+        <div class="qr-box">
+          <img id="qrImage" src="" alt="Scan to test Mobile Storefront" />
+          <small>Scan With Camera</small>
+        </div>
+      </section>
+
+      <!-- Engineering & Infrastructure Highlights -->
+      <div class="specs-strip">
+        <div class="spec-item"><span>✦</span> Next.js 14 App Router</div>
+        <div class="spec-item"><span>✦</span> TypeScript Strict</div>
+        <div class="spec-item"><span>✦</span> Prisma PostgreSQL</div>
+        <div class="spec-item"><span>✦</span> Supabase Realtime</div>
+        <div class="spec-item"><span>✦</span> Upstash Redis DDoS Shield</div>
+        <div class="spec-item"><span>✦</span> Playwright E2E Verified</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>MAISON Luxury E-Commerce &bull; The Architecture of Modern Luxury &bull; Licensed for Commercial Distribution</p>
+    </div>
+  </footer>
+
+  <!-- Toast Element -->
+  <div id="toast">Copied to Clipboard!</div>
+
+  <script>
+    // Dynamically set QR Code to point to current domain or localhost
+    const currentOrigin = window.location.origin;
+    const qrImg = document.getElementById("qrImage");
+    if (qrImg) {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(currentOrigin)}`;
+    }
+
+    // 1-Click Copy with Visual Toast
+    function copyText(text, btnElement) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "✓";
+        btnElement.classList.add("copied");
+
+        const toast = document.getElementById("toast");
+        toast.innerText = `COPIED: ${text}`;
+        toast.classList.add("active");
+
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.classList.remove("copied");
+        }, 1600);
+
+        setTimeout(() => {
+          toast.classList.remove("active");
+        }, 2200);
+      }).catch(() => {
+        // Fallback for non-https / older browsers
+        const input = document.createElement("input");
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        
+        btnElement.innerText = "✓";
+        setTimeout(() => { btnElement.innerText = "Copy"; }, 1600);
+      });
+    }
+  </script>
+</body>
+</html>
